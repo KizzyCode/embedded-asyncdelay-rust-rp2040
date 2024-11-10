@@ -1,0 +1,35 @@
+[package]
+name = "embedded-asyncdelay-rp2040"
+version = "0.0.1"
+edition = "2021"
+authors = ["KizzyCode Software Labs./Keziah Biermann <development@kizzycode.de>"]
+keywords = []
+categories = []
+description = "A hardware-based, asynchronous delay that can be used with async/await runtimes"
+license = "BSD-2-Clause OR MIT"
+repository = "https://github.com/KizzyCode/embedded-asyncdelay-rust-rp2040"
+readme = "README.md"
+
+
+[badges]
+appveyor = { repository = "KizzyCode/embedded-asyncdelay-rust-rp2040" }
+
+[features]
+default = ["init16", "alarm0"]
+init16 = []
+alarm0 = []
+alarm1 = []
+alarm2 = []
+alarm3 = []
+
+
+[dependencies]
+critical-section = { version = "1.2.0", default-features = false }
+rp2040-hal = { version = "0.10.2", default-features = false, features = ["rt"] }
+
+
+[profile.release]
+overflow-checks = true
+
+[profile.bench]
+overflow-checks = true
