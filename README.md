@@ -1,6 +1,12 @@
 [![License BSD-2-Clause](https://img.shields.io/badge/License-BSD--2--Clause-blue.svg)](https://opensource.org/licenses/BSD-2-Clause)
 [![License MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
+[![AppVeyor CI](https://ci.appveyor.com/api/projects/status/github/KizzyCode/embedded-asyncdelay-rust-rp2040?svg=true)](https://ci.appveyor.com/project/KizzyCode/embedded-asyncdelay-rust-rp2040)
+<!--
+[![docs.rs](https://docs.rs/embedded-asyncdelay-rp2040/badge.svg)](https://docs.rs/embedded-asyncdelay-rp2040)
+[![crates.io](https://img.shields.io/crates/v/embedded-asyncdelay-rp2040.svg)](https://crates.io/crates/embedded-asyncdelay-rp2040)
+[![Download numbers](https://img.shields.io/crates/d/embedded-asyncdelay-rp2040.svg)](https://crates.io/crates/embedded-asyncdelay-rp2040)
+[![dependency status](https://deps.rs/crate/embedded-asyncdelay-rp2040/latest/status.svg)](https://deps.rs/crate/embedded-asyncdelay-rp2040)
+-->
 
 # `embedded-asyncdelay-rp2040`
 A hardware-based, asynchronous delay that can be used with async/await runtimes. The implementation uses one of the
