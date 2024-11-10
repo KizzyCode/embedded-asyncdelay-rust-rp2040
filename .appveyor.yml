@@ -4,7 +4,7 @@ build: false
 
 # The Rust target platforms
 platform:
-  - x86_64-unknown-linux-gnu
+  - thumbv6m-none-eabi
 
 
 # The Rust feature matrix
@@ -32,10 +32,7 @@ matrix:
 
 # Build library
 for:
-  - matrix:
-      only:
-        - platform: thumbv6m-none-eabi
-    environment:
+  - environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
     install:
       - curl https://sh.rustup.rs -sSf -o rustup-init.sh
