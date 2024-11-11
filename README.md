@@ -20,7 +20,7 @@ setting the appropriate `alarm` feature. By default, `alarm0` is selected.
 ## Waker Slots and Initialization
 Since we need to wake the async wakers from the interrupt callback, we need some stack-allocated shared storage. By
 default, this crate automatically allocates enough space for 16 slots by default. To override this, you must disable the
-`init16` feature, and call the `setup_waker_slots!` macro with your desired number of slots manually.
+`init16` feature, and call the `setup_waker_slots!` macro __once__ with your desired number of slots manually.
 
 __IMPORTANT:__ If you disable the `init16` feature, but don't call `setup_waker_slots!`, this will yield a rather
 cryptic linker error and compilation will fail.
