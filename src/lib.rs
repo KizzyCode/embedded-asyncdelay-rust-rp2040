@@ -16,4 +16,4 @@ pub extern crate rp2040_hal;
 // Re-export private modules if necessary
 #[cfg(not(feature = "init16"))]
 #[doc(hidden)]
-pub use sharedstate::{GlobalWakerSlots, WakerSlot};
+pub use crate::sharedstate::{GlobalWakerSlots, WakerSlot};
