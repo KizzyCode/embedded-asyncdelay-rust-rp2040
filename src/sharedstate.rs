@@ -34,7 +34,7 @@ impl<const SLOTS: usize> GlobalWakerSlots for Mutex<RefCell<[WakerSlot; SLOTS]>>
 }
 
 /// Shared state storage between the scheduler and the IRQ handler
-pub(crate) struct SharedState {
+pub struct SharedState {
     /// The periodic alarm interval
     pub interval: MicrosDurationU32,
     /// A timer to get the current monotonic time
@@ -110,7 +110,7 @@ impl SharedState {
 /// This macro declares a `pub extern "Rust"`-function and must be called on module level/top level, and not from within
 /// a function. It must only be used if the `init*`-features of this crate are disabled, and only once; otherwise it
 /// will yield a rather cryptic linker error and compilation will fail.
-#[macro_export]
+#[cfg_attr(not(feature = "init16"), macro_export)]
 macro_rules! setup_waker_slots {
     ($wakers_max:expr) => {
         #[no_mangle]

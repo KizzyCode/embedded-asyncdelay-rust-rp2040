@@ -4,7 +4,7 @@
 mod alarm;
 pub mod future;
 pub mod scheduler;
-pub mod sharedstate;
+mod sharedstate;
 
 // Export the scheduler as it's the main entry point for this crate
 pub use scheduler::DelayScheduler;
@@ -12,3 +12,8 @@ pub use scheduler::DelayScheduler;
 // Re-export dependency crates
 pub extern crate critical_section;
 pub extern crate rp2040_hal;
+
+// Re-export private modules if necessary
+#[cfg(not(feature = "init16"))]
+#[doc(hidden)]
+pub use sharedstate::{GlobalWakerSlots, WakerSlot};
