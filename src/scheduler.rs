@@ -26,23 +26,22 @@ impl DelayScheduler {
     /// The resolution defines how often the scheduler will wakeup to see if there are some futures to wake. The
     /// resolution is a tradeoff between accuracy and load. A higher resolution means more accurate wakeups, but also
     /// increases load and power consumption on the CPU.
-    pub fn new(mut alarm: HardwareAlarm, timer: Timer, resolution: Duration) -> Self {
+    pub fn new(alarm: HardwareAlarm, timer: Timer, resolution: Duration) -> Self {
         // Convert duration into internal representation
         let interval = u32::try_from(resolution.as_millis()).expect("resolution is too low");
         let interval = MicrosDurationU32::millis(interval);
 
-        // Enable interrupts
-        alarm.enable_interrupt();
-        unsafe { NVIC::unmask(TIMER_IRQ) };
-
         // Setup periodic alarm
         critical_section::with(|cs| {
-            // Schedule alarm and store the required IRQ state
-            alarm.schedule(interval).expect("failed to schedule alarm");
-
             // Initialize the shared state
-            let shared = SharedState { alarm, interval, timer };
-            SharedState::global().borrow(cs).replace(Some(shared));
+            let mut shared_slot = SharedState::global().borrow(cs).borrow_mut();
+            *shared_slot = Some(SharedState { alarm, interval, timer });
+            let shared = shared_slot.as_mut().expect("failed to access shared slot");
+
+            // Schedule alarm
+            unsafe { NVIC::unmask(TIMER_IRQ) };
+            shared.alarm.enable_interrupt();
+            shared.alarm.schedule(interval).expect("failed to schedule alarm");
         });
 
         // Init self
