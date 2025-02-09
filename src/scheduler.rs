@@ -5,7 +5,10 @@ use crate::{
     future::DelayFuture,
     sharedstate::SharedState,
 };
-use core::time::Duration;
+use core::{
+    fmt::{Debug, Formatter},
+    time::Duration,
+};
 use rp2040_hal::{
     fugit::{MicrosDurationU32, MicrosDurationU64},
     pac::NVIC,
@@ -71,5 +74,10 @@ impl DelayScheduler {
         let now = self.timer.get_counter().duration_since_epoch();
         let deadline = now.checked_add(timeout).expect("timeout is too large");
         DelayFuture { deadline, timer: self.timer, slot: slot_index }
+    }
+}
+impl Debug for DelayScheduler {
+    fn fmt(&self, f: &mut Formatter) -> core::fmt::Result {
+        f.debug_struct("DelayScheduler").field("timer", &"<opaque>").finish()
     }
 }
